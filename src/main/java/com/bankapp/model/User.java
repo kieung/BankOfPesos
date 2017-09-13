@@ -2,38 +2,37 @@ package com.bankapp.model;
 
 import java.util.Date;
 
-import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-import javax.persistence.*;
 
 @Entity
-//@Table(name = "User")
 public class User {
 	
 	public User(){}
 	
+	public User(int id, String name, String userName, String password, String email, Date createdAt) {
+		this.id = id;
+		this.name = name;
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.createdAt = createdAt;
+	}
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank
 	private String name;
 	
-	@NotBlank
 	private String userName;
 	
-	@NotBlank
 	private String password;
 	
-	@NotBlank
 	private String email;
 	
-	@CreatedDate
 	private Date createdAt;
 	
-
 	
 	public int getId() {
 		return id;
