@@ -5,14 +5,19 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * 
+ * @author kieunguy
+ *
+ *@Entity tells Hibernate to create a table of of this class
+ */
 
 @Entity
 public class User {
 	
 	public User(){}
 	
-	public User(int id, String name, String userName, String password, String email, Date createdAt) {
-		this.id = id;
+	public User(String name, String userName, String password, String email, Date createdAt) {
 		this.name = name;
 		this.userName = userName;
 		this.password = password;
