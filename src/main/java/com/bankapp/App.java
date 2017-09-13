@@ -9,9 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.bankapp.controller.UserController;
 import com.bankapp.model.User;
 
-
-
-
 /**
  * Hello world!
  *
