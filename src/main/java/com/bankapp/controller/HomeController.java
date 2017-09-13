@@ -13,4 +13,10 @@ public class HomeController {
 		return "WORKING";
 	}
 
+	
+	@RequestMapping("/test")
+	@ResponseBody
+	public String test() {
+		return "test";
+	}
 }

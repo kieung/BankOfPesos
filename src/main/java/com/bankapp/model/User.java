@@ -3,6 +3,8 @@ package com.bankapp.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,7 +12,7 @@ import javax.persistence.Table;
  * 
  * @author kieunguy
  *
- *@Entity tells Hibernate to create a table of of this class
+ *@Entity tells Hibernate to create a table of this class
  */
 
 @Entity
@@ -19,15 +21,16 @@ public class User {
 	
 	public User(){}
 	
-	public User(String name, String userName, String password, String email, Date createdAt) {
+	public User(String name, String userName, String password, String email, Date date) {
 		this.name = name;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
-		this.createdAt = createdAt;
+		this.createdAt = date;
 	}
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	private String name;
@@ -44,9 +47,11 @@ public class User {
 	public int getId() {
 		return id;
 	}
+	/*
 	public void setId(int id) {
 		this.id = id;
 	}
+	*/
 	public String getName() {
 		return name;
 	}
