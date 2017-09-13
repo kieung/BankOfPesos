@@ -2,6 +2,7 @@ package com.bankapp.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,29 +20,35 @@ import javax.persistence.Table;
 @Table(name="user")
 public class User {
 	
-	public User(){}
-	
-	public User(String name, String userName, String password, String email, Date date) {
-		this.name = name;
-		this.userName = userName;
-		this.password = password;
-		this.email = email;
-		this.createdAt = date;
-	}
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column
 	private String name;
 	
-	private String userName;
+	@Column
+	private String username;
 	
+	@Column
 	private String password;
 	
+	@Column
 	private String email;
 	
+	@Column
 	private Date createdAt;
+	
+	
+	public User(){}
+	
+	public User(String name, String username, String password, String email, Date date) {
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.createdAt = date;
+	}
 	
 	
 	public int getId() {
@@ -58,11 +65,11 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;

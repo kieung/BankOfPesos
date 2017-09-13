@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +22,34 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
+
+	
+	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public void postUser(@RequestBody User user) {
-		userRepository.save(new User(user.getName(), user.getUserName(), user.getPassword(),
-				"user@test.xx", new Date()));
+		System.out.println("username test...............................");
+		System.out.println(user.getUsername());
+		userRepository.save(new User(user.getName(), user.getUsername(), user.getPassword(),"user@test.xx", new Date()));
 	}
+	
+	
+	
+	
+/**
+ * This is also a working POST method for registering users to database
+ */
+//	@RequestMapping(value="/register", method=RequestMethod.POST)
+//	public ResponseEntity<User> createUser(@RequestBody User user) {
+//		System.out.println("creating user:" + user.getName());
+//		
+//		userRepository.save(new  User(user.getName(), user.getUserName(),
+//				user.getPassword(), "test@test", new Date()));
+//		return new ResponseEntity<User>(HttpStatus.CREATED);
+//	}
+	
+	
+
+	
 	
 	
 	
