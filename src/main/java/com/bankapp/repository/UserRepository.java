@@ -1,4 +1,4 @@
-package com.bankapp.repositories;
+package com.bankapp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
