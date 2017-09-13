@@ -1,8 +1,11 @@
 package com.bankapp.controller;
 
+import java.util.Date;
+
 import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,22 +20,13 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
-	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public ModelAndView showRegistration(ModelAndView modelAndView) {
-		
-		modelAndView.addObject("user", new User());
-		modelAndView.setViewName("register");
-		return modelAndView;
-				
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public void postUser(@RequestBody User user) {
+		userRepository.save(new User(user.getName(), user.getUserName(), user.getPassword(),
+				"user@test.xx", new Date()));
 	}
 	
-	@RequestMapping(value="/access-denied", method=RequestMethod.POST)
-	public ModelAndView processRegistration(ModelAndView modelAndView, User user) {
-		userRepository.save(user);
-		modelAndView.setViewName("access-denied");
-		return modelAndView;
-			
-	}
+	
 	
 	
 	
