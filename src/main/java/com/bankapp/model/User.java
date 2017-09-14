@@ -1,8 +1,11 @@
 package com.bankapp.model;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,83 +16,85 @@ import javax.persistence.Table;
  * 
  * @author kieunguy
  *
- *@Entity tells Hibernate to create a table of this class
+ * @Entity tells Hibernate to create a table of this class
  */
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
+	private long id;
+
 	@Column
 	private String name;
-	
+
 	@Column
 	private String username;
-	
+
 	@Column
 	private String password;
-	
-	@Column
-	private String email;
-	
-	@Column
-	private Date createdAt;
+
+
+	@ElementCollection
+	List<String> roles = new ArrayList<String>();
 	
 	
-	public User(){}
 	
-	public User(String name, String username, String password, String email, Date date) {
+
+	public User() {
+	}
+
+	public User(String name, String username, String password) {
 		this.name = name;
 		this.username = username;
 		this.password = password;
-		this.email = email;
-		this.createdAt = date;
+
 	}
-	
-	
-	public int getId() {
+
+	public long getId() {
 		return id;
 	}
+
 	/*
-	public void setId(int id) {
-		this.id = id;
-	}
-	*/
+	 * public void setId(int id) { this.id = id; }
+	 */
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getUsername() {
 		return username;
 	}
-	public void setUserName(String username) {
+
+	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
+	
+	
+	public List<String> getRoles() {
+		return roles;
 	}
 	
-	public Date getCreatedAt() {
-		return createdAt;
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 	
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+
+
+
 
 }
