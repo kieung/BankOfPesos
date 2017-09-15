@@ -1,10 +1,14 @@
 package com.bankapp.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,10 +16,16 @@ import javax.persistence.Table;
 public class BankAccount {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long ownerid;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column
+	private long id;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id")
+	@MapsId
+	private User user;
 
-
+	
 	@Column
 	private double balance;
 
@@ -35,11 +45,18 @@ public class BankAccount {
 		this.balance = balance;
 	}
 
-	public long getOwnerId() {
-		return ownerid;
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public long getId() {
+		return id;
 	}
 	
-	public void setOwnerId(long ownerId) {
-		this.ownerid = ownerId;
-	}
+	
+
 }

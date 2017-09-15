@@ -1,7 +1,6 @@
 package com.bankapp.controller;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bankapp.model.BankAccount;
 import com.bankapp.model.User;
 import com.bankapp.repository.BankRepository;
+import com.bankapp.repository.TransferRepository;
 import com.bankapp.repository.UserRepository;
+import com.bankapp.services.TransferServices;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -50,8 +51,13 @@ public class UserController {
 		
 		BankAccount account = new BankAccount();
 		account.setBalance(100);
+		account.setUser(user);
+		
+
 		bankAccountRepository.save(account);
 		
+		
+		user.setBankAccount(account);
 		userRepository.save(user);
 		return new ResponseEntity<User>(HttpStatus.CREATED); 
 		
@@ -90,5 +96,15 @@ public class UserController {
 		}
 				
 	}
+	
+	@Autowired
+	TransferRepository tr;
+	
+	@RequestMapping(value="/test", method=RequestMethod.POST)
+	public void testTransfer() {
+		
+		TransferServices ts = new TransferServices();
+		
 
+	}
 }
