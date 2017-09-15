@@ -67,6 +67,8 @@ public class BankAccount {
 		return id;
 	}
 	
-	
+	public void addBalance(double amount) {
+		this.balance += amount;
+	}
 
 }

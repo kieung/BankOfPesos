@@ -1,8 +1,8 @@
 package com.bankapp.dao;
 
-import com.bankapp.model.BankAccount;
+import com.bankapp.model.Transfer;
 
 public interface TransferDao {
 	
-	public void InitiateTransfer(BankAccount initiator, BankAccount recipient, double amount);
+	public void InitiateTransfer(Transfer transfer);
 }

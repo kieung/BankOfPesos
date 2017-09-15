@@ -1,13 +1,15 @@
 package com.bankapp.dao;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Repository;
 
-import com.bankapp.model.BankAccount;
+import com.bankapp.model.Transfer;
 
+@Repository
 public class TransferDaoImpl implements TransferDao {
 
 	@Override
-	public void InitiateTransfer(BankAccount initiator, BankAccount recipient, double amount) throws DataAccessException {
+	public void InitiateTransfer(Transfer transfer) throws DataAccessException {
 		// TODO Auto-generated method stub
 		
 	}

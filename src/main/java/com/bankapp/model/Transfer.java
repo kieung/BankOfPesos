@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
@@ -27,7 +26,7 @@ public class Transfer {
 	
 	
 	@ManyToOne(fetch=FetchType.LAZY , cascade = CascadeType.ALL)
-	@JoinColumn(insertable=false, updatable=false)
+	@JoinColumn
 	private BankAccount recipient;
 	
 	private double amount;
@@ -37,12 +36,15 @@ public class Transfer {
 	
 	
 	
-	public Transfer(BankAccount initiator, BankAccount recipient, double amount, LocalDateTime localDateTime) {
+	public Transfer(BankAccount initiator, BankAccount recipient, double amount) {
 		super();
 		this.initiator = initiator;
 		this.recipient = recipient;
 		this.amount = amount;
-		this.localDateTime = localDateTime;
+		this.localDateTime = LocalDateTime.now(); // FIXME: LocalDateTime now being saved properly to DB
+		
+		initiator.addBalance(-amount);
+		recipient.addBalance(amount);
 	}
 
 	public double getAmount() {

@@ -23,7 +23,6 @@ import com.bankapp.model.User;
 import com.bankapp.repository.BankRepository;
 import com.bankapp.repository.TransferRepository;
 import com.bankapp.repository.UserRepository;
-import com.bankapp.services.TransferServices;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -107,16 +106,5 @@ public class UserController {
 				
 	}
 	
-	@Autowired
-	TransferRepository tr;
-	
-	@RequestMapping(value="/test", method=RequestMethod.POST)
-	public void testTransfer() {
-		
-		TransferServices ts = new TransferServices();
-		User user = userRepository.findOneByUsername("1");
-		System.out.println("bank: "+user.getBankAccount());
-		System.out.println("bankinfo: "+user.getBankAccount().getBalance());
 
-	}
 }
