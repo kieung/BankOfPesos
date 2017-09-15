@@ -19,18 +19,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bankapp.model.BankAccount;
 import com.bankapp.model.User;
+import com.bankapp.repository.BankRepository;
 import com.bankapp.repository.UserRepository;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
 
 @RestController
 public class UserController {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	BankRepository bankAccountRepository;
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -43,6 +47,10 @@ public class UserController {
 		roles.add("USER");
 		
 		user.setRoles(roles);
+		
+		BankAccount account = new BankAccount();
+		account.setBalance(100);
+		bankAccountRepository.save(account);
 		
 		userRepository.save(user);
 		return new ResponseEntity<User>(HttpStatus.CREATED); 
@@ -82,5 +90,5 @@ public class UserController {
 		}
 				
 	}
-	
+
 }
