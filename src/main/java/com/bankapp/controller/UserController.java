@@ -40,24 +40,34 @@ public class UserController {
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		//Check if the username exists. Dont allow to create the same username
+		System.out.println("user test");
+		
 		if(userRepository.findOneByUsername(user.getUsername()) != null) {
 			throw new RuntimeException("Username already exists");
 		}
+		
+		
+		System.out.println("user creation");
 		
 		List<String> roles = new ArrayList<String>();
 		roles.add("USER");
 		
 		user.setRoles(roles);
 		
+		System.out.println("account creation");
+		
 		BankAccount account = new BankAccount();
 		account.setBalance(100);
 		account.setUser(user);
 		
-
+		System.out.println("account save");
 		bankAccountRepository.save(account);
 		
-		
 		user.setBankAccount(account);
+		
+		System.out.println("user: "+user);
+		System.out.println("userba: "+account);
+		
 		userRepository.save(user);
 		return new ResponseEntity<User>(HttpStatus.CREATED); 
 		
@@ -104,7 +114,9 @@ public class UserController {
 	public void testTransfer() {
 		
 		TransferServices ts = new TransferServices();
-		
+		User user = userRepository.findOneByUsername("1");
+		System.out.println("bank: "+user.getBankAccount());
+		System.out.println("bankinfo: "+user.getBankAccount().getBalance());
 
 	}
 }

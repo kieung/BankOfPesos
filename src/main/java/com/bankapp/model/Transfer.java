@@ -22,14 +22,12 @@ public class Transfer {
 	private long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL) 
-	@JoinColumn(name = "id")
-	@MapsId
+	@JoinColumn
 	private BankAccount initiator;
 	
 	
 	@ManyToOne(fetch=FetchType.LAZY , cascade = CascadeType.ALL)
-	@JoinColumn(name = "id", insertable=false, updatable=false)
-	@MapsId
+	@JoinColumn(insertable=false, updatable=false)
 	private BankAccount recipient;
 	
 	private double amount;
@@ -37,6 +35,16 @@ public class Transfer {
 	private LocalDateTime localDateTime;
 	
 	
+	
+	
+	public Transfer(BankAccount initiator, BankAccount recipient, double amount, LocalDateTime localDateTime) {
+		super();
+		this.initiator = initiator;
+		this.recipient = recipient;
+		this.amount = amount;
+		this.localDateTime = localDateTime;
+	}
+
 	public double getAmount() {
 		return amount;
 	}

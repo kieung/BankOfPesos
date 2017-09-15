@@ -32,7 +32,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn
 	private BankAccount bankAccount;
 
@@ -54,13 +54,19 @@ public class User {
 
 	public User() {
 	}
+	
+	
 
-	public User(String name, String username, String password) {
+	public User(BankAccount bankAccount, String name, String username, String password, List<String> roles) {
+		super();
+		this.bankAccount = bankAccount;
 		this.name = name;
 		this.username = username;
 		this.password = password;
-
+		this.roles = roles;
 	}
+
+
 
 	public long getId() {
 		return id;
