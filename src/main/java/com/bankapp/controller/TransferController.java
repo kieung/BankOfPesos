@@ -37,16 +37,22 @@ public class TransferController {
 		
 		try
 		{
-			TransferDaoImpl transferDao = new TransferDaoImpl();
+			//TransferDaoImpl transferDao = new TransferDaoImpl();
 			
+			/* old when user linked to account
 			User initiator = userRepository.findOneByUsername("1");
 			User recipient = userRepository.findOneByUsername("2");
 			
 			BankAccount b1 = initiator.getBankAccount();
 			BankAccount b2 = recipient.getBankAccount();
+			*/
+			
+			BankAccount b1 = bankAccountRepository.getOne(1L);
+			BankAccount b2 = bankAccountRepository.getOne(2L);
 			
 			// The transfer constructor both creates the transfer and performs the transaction, so all there's left to do is save to DB
 			Transfer transfer = new Transfer(b1, b2, 50); // FIXME: LocalDateTime now being saved properly to DB
+			transfer.setMessage("secret message");
 			
 			transferRepository.save(transfer);
 			bankAccountRepository.save(b1);

@@ -32,9 +32,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn
-	private BankAccount bankAccount;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn
+//	private BankAccount bankAccount;
 
 	@Column
 	private String name;
@@ -66,8 +66,8 @@ public class User {
 //		this.roles = roles;
 //	}
 	
-	public User(BankAccount bankAccount, String name, String username, String password) {
-		this.bankAccount = bankAccount;
+	public User(/*BankAccount bankAccount, */String name, String username, String password) {
+		//this.bankAccount = bankAccount;
 		this.name = name;
 		this.username = username;
 		this.password = password;
@@ -79,7 +79,7 @@ public class User {
 	}
 	
 	
-
+	/*
 	public BankAccount getBankAccount() {
 		return bankAccount;
 	}
@@ -87,7 +87,8 @@ public class User {
 	public void setBankAccount(BankAccount bankAccount) {
 		this.bankAccount = bankAccount;
 	}
-
+	
+	*/
 	/*
 	 * public void setId(int id) { this.id = id; }
 	 */

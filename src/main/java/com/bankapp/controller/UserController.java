@@ -57,14 +57,14 @@ public class UserController {
 		
 		BankAccount account = new BankAccount();
 		account.setBalance(100);
-		//account.setUser(user);
+		account.setUser(user);
+		//set bankaccount to user
+		//user.setBankAccount(account);
 		
 		System.out.println("account save");
 		bankAccountRepository.save(account);
 		
 		
-		//set bankaccount to user
-		user.setBankAccount(account);
 		
 		//System.out.println("user: "+user);
 		//System.out.println("userba: "+account);

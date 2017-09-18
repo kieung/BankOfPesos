@@ -34,6 +34,8 @@ public class Transfer {
 	
 	private Date localDateTime;
 	
+	private String message;
+	
 	
 	
 	
@@ -83,6 +85,14 @@ public class Transfer {
 
 	public void setRecipient(BankAccount recipient) {
 		this.recipient = recipient;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 	
