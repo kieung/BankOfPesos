@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bankapp.model.BankAccount;
 import com.bankapp.model.User;
 import com.bankapp.repository.BankRepository;
-import com.bankapp.repository.TransferRepository;
 import com.bankapp.repository.UserRepository;
 
 import io.jsonwebtoken.Jwts;
@@ -29,6 +29,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 public class UserController {
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -46,7 +49,11 @@ public class UserController {
 		}
 		
 		
-		System.out.println("user creation");
+		System.out.println("hashed pw: "+passwordEncoder.encode(user.getPassword()));
+		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		System.out.println("saved pw: "+user.getPassword());
 		
 		List<String> roles = new ArrayList<String>();
 		roles.add("USER");
@@ -89,8 +96,13 @@ public class UserController {
 		//create a hashmap to associate user and token
 		Map<String, Object> tokenMap = new HashMap<String, Object>();
 		
+		System.out.println("hashed pw: "+passwordEncoder.encode(user.getPassword()));
+		System.out.println("saved pw: "+user.getPassword());
+		
+		System.out.println("password matching: "+passwordEncoder.matches(password, user.getPassword()));
+		
 		//check if password is correct
-		if (user != null && user.getPassword().equals(password) ) {
+		if (user != null && passwordEncoder.matches(password, user.getPassword())) {
 			
 			//create the token using Jwt
 			token = Jwts.builder().setSubject(username).claim("roles", user.getRoles()).setIssuedAt(new Date())
