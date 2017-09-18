@@ -21,9 +21,9 @@ public class BankAccount {
 	@Column
 	private long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn
-	private User user;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn
+//	private User user;
 	
 
 	@Column
@@ -35,11 +35,11 @@ public class BankAccount {
 	
 	
 
-	public BankAccount(User user, double balance) {
-		super();
-		this.user = user;
-		this.balance = balance;
-	}
+//	public BankAccount(User user, double balance) {
+//		super();
+//		this.user = user;
+//		this.balance = balance;
+//	}
 
 
 
@@ -55,13 +55,13 @@ public class BankAccount {
 		this.balance = balance;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 	public long getId() {
 		return id;

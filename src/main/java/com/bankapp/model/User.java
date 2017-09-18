@@ -57,15 +57,21 @@ public class User {
 	
 	
 
-	public User(BankAccount bankAccount, String name, String username, String password, List<String> roles) {
-		super();
+//	public User(BankAccount bankAccount, String name, String username, String password, List<String> roles) {
+//		super();
+//		this.bankAccount = bankAccount;
+//		this.name = name;
+//		this.username = username;
+//		this.password = password;
+//		this.roles = roles;
+//	}
+	
+	public User(BankAccount bankAccount, String name, String username, String password) {
 		this.bankAccount = bankAccount;
 		this.name = name;
 		this.username = username;
 		this.password = password;
-		this.roles = roles;
 	}
-
 
 
 	public long getId() {

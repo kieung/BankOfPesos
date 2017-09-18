@@ -1,6 +1,7 @@
 package com.bankapp.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,7 +32,7 @@ public class Transfer {
 	
 	private double amount;
 	
-	private LocalDateTime localDateTime;
+	private Date localDateTime;
 	
 	
 	
@@ -41,7 +42,7 @@ public class Transfer {
 		this.initiator = initiator;
 		this.recipient = recipient;
 		this.amount = amount;
-		this.localDateTime = LocalDateTime.now(); // FIXME: LocalDateTime now being saved properly to DB
+		this.localDateTime = new Date(); // FIXME: LocalDateTime now being saved properly to DB
 		
 		initiator.addBalance(-amount);
 		recipient.addBalance(amount);
@@ -55,11 +56,11 @@ public class Transfer {
 		this.amount = amount;
 	}
 
-	public LocalDateTime getLocalDateTime() {
+	public Date getLocalDateTime() {
 		return localDateTime;
 	}
 
-	public void setLocalDateTime(LocalDateTime localDateTime) {
+	public void setLocalDateTime(Date localDateTime) {
 		this.localDateTime = localDateTime;
 	}
 
