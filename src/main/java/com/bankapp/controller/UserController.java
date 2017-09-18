@@ -1,7 +1,6 @@
 package com.bankapp.controller;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bankapp.model.BankAccount;
 import com.bankapp.model.User;
 import com.bankapp.repository.BankRepository;
+import com.bankapp.repository.TransferRepository;
 import com.bankapp.repository.UserRepository;
 
 import io.jsonwebtoken.Jwts;
@@ -39,18 +39,33 @@ public class UserController {
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		//Check if the username exists. Dont allow to create the same username
+		System.out.println("user test");
+		
 		if(userRepository.findOneByUsername(user.getUsername()) != null) {
 			throw new RuntimeException("Username already exists");
 		}
+		
+		
+		System.out.println("user creation");
 		
 		List<String> roles = new ArrayList<String>();
 		roles.add("USER");
 		
 		user.setRoles(roles);
 		
+		System.out.println("account creation");
+		
 		BankAccount account = new BankAccount();
 		account.setBalance(100);
+		account.setUser(user);
+		
+		System.out.println("account save");
 		bankAccountRepository.save(account);
+		
+		user.setBankAccount(account);
+		
+		System.out.println("user: "+user);
+		System.out.println("userba: "+account);
 		
 		userRepository.save(user);
 		return new ResponseEntity<User>(HttpStatus.CREATED); 
@@ -90,5 +105,6 @@ public class UserController {
 		}
 				
 	}
+	
 
 }
