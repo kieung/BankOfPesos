@@ -1,1 +1,41 @@
-<pre>{{user|json}}</pre>
+<div class="row">
+	<div class="col-sm-6 ">
+		<div class="panel panel-default">
+			<div class="panel-heading">Transfer</div>
+			<div class="panel-body">
+				<div class="col-md-12">
+					<form ng-submit="submit()" name="transfer" novalidate>
+
+
+						<div class="form-group"
+							ng-class="{ 'has-error': transfer.recipient.$invalid && transfer.recipient.$dirty }">
+							<label for="recipient">To:</label> <input type="text" required
+								class="form-control" ng-model="transferProcess.recipient" id="recipient"
+								name="recipient">
+						</div>
+
+						<div class="form-group"
+							ng-class="{ 'has-error': transfer.amount.$invalid && transfer.amount.$dirty }">
+							<label for="amount">Amount:</label> <input type="text" required
+								class="form-control" ng-model="transferProcess.amount" id="amount"
+								name="amount">
+						</div>
+
+
+						<div class="form-group"
+							ng-class="{ 'has-error': transfer.message.$invalid && transfer.message.$dirty }">
+							<label for="message">Message:</label> <input type="text" required 
+							class="form-control" ng-model="transferProcess.message" id="message" name="message">
+						</div>
+
+						<button type="submit" class="btn btn-default"
+							ng-disabled="transferFrom.$invalid">{{buttonText}}</button>
+
+
+						<div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

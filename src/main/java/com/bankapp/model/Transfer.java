@@ -38,6 +38,11 @@ public class Transfer {
 	
 	
 	
+	//WARN: Default constructor must be added to facilitate Hibernate
+	public Transfer() {
+		
+	}
+	
 	
 	public Transfer(BankAccount initiator, BankAccount recipient, double amount) {
 		super();

@@ -48,15 +48,11 @@ public class User {
 
 	@ElementCollection
 	List<String> roles = new ArrayList<String>();
-	
-	
-	
 
 	public User() {
 	}
 	
 	
-
 //	public User(BankAccount bankAccount, String name, String username, String password, List<String> roles) {
 //		super();
 //		this.bankAccount = bankAccount;

@@ -16,12 +16,14 @@ angular.module('JWTDemoApp')
 			$scope.message = error.message;
 		});
 	};
+	
 	$scope.initEdit = function(appUser) {
 		edit = true;
 		$scope.appUser = appUser;
 		$scope.message='';
 		$scope.buttonText = 'Update';
 	};
+	
 	$scope.initAddUser = function() {
 		edit = false;
 		$scope.appUser = null;

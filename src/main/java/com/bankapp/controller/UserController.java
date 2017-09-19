@@ -1,6 +1,7 @@
 package com.bankapp.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bankapp.model.BankAccount;
+import com.bankapp.model.Transfer;
 import com.bankapp.model.User;
 import com.bankapp.repository.BankRepository;
 import com.bankapp.repository.TransferRepository;
@@ -36,10 +41,14 @@ public class UserController {
 	@Autowired
 	BankRepository bankAccountRepository;
 	
+	@Autowired
+	TransferRepository transferRepository;
+	
+	
+	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		//Check if the username exists. Dont allow to create the same username
-		System.out.println("user test");
 		
 		if(userRepository.findOneByUsername(user.getUsername()) != null) {
 			throw new RuntimeException("Username already exists");
@@ -52,30 +61,18 @@ public class UserController {
 		roles.add("USER");
 		
 		user.setRoles(roles);
-		
-		System.out.println("account creation");
-		
+				
 		BankAccount account = new BankAccount();
 		account.setBalance(100);
 		account.setUser(user);
-		//set bankaccount to user
-		//user.setBankAccount(account);
 		
-		System.out.println("account save");
 		bankAccountRepository.save(account);
 		
-		
-		
-		//System.out.println("user: "+user);
-		//System.out.println("userba: "+account);
 		
 		userRepository.save(user);
 		return new ResponseEntity<User>(HttpStatus.CREATED); 
 		
-		
-		
-//		userRepository.save(new User(user.getName(), user.getUsername(), user.getPassword(),
-//				"user@test.xx", new Date()));
+				
 	}
 	
 	@RequestMapping(value="/authenticate", method=RequestMethod.POST)
@@ -106,6 +103,45 @@ public class UserController {
 			return new ResponseEntity<Map<String,Object>>(tokenMap, HttpStatus.UNAUTHORIZED);
 		}
 				
+	}
+	
+	@RequestMapping(value="/home", method=RequestMethod.POST) 
+	public ResponseEntity<Transfer> transfer(Principal principal, @RequestParam String recipient,  @RequestParam double amount, 
+			@RequestParam String message, HttpServletResponse response) throws IOException {
+		
+		//check if recipient username exist in database
+		if (userRepository.findOneByUsername(recipient) == null) {
+			throw new RuntimeException("Recipient does not exists !");
+		}
+		
+		//sender username
+		String senderUsername = principal.getName();
+		
+		//sender User object
+		User sender = userRepository.findOneByUsername(senderUsername);
+		long senderId = sender.getId();
+		
+		//recipient User object
+		User recipientObject = userRepository.findOneByUsername(recipient);
+		long recipientId = recipientObject.getId();
+		
+		
+		BankAccount senderAccount = bankAccountRepository.findOne(senderId);
+		BankAccount recipientAccount = bankAccountRepository.findOne(recipientId);
+		
+		//create a new Transfer transaction
+		Transfer transfer = new Transfer(senderAccount, recipientAccount, amount);
+		transfer.setMessage(message);
+		
+		//save updates in bankaccounts and transfer history
+		bankAccountRepository.save(senderAccount);
+		bankAccountRepository.save(recipientAccount);
+		transferRepository.save(transfer);
+		
+		
+		return new ResponseEntity<Transfer>(HttpStatus.OK);
+		
+		
 	}
 	
 

@@ -32,6 +32,7 @@ angular.module('JWTDemoApp')
 		}).error(function(error) {
 			// if authentication was not successful. Setting the error message.
 			$scope.message = 'Authetication Failed !';
+			
 		});
 	};
 });
