@@ -13,13 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-<<<<<<< HEAD
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-=======
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
->>>>>>> 6bc00c29a92cb85711cf693da2ec5c9d8c5e8dcf
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +24,7 @@ import com.bankapp.model.BankAccount;
 import com.bankapp.model.Transfer;
 import com.bankapp.model.User;
 import com.bankapp.repository.BankRepository;
+import com.bankapp.repository.TransferRepository;
 import com.bankapp.repository.UserRepository;
 
 import io.jsonwebtoken.Jwts;
@@ -39,7 +34,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class UserController {
 	
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
 	UserRepository userRepository;
