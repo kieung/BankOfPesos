@@ -55,12 +55,9 @@ public class UserController {
 			throw new RuntimeException("Username already exists");
 		}
 		
-		
-		System.out.println("hashed pw: "+passwordEncoder.encode(user.getPassword()));
-		
+				
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
-		System.out.println("saved pw: "+user.getPassword());
 		
 		List<String> roles = new ArrayList<String>();
 		roles.add("USER");
@@ -91,10 +88,6 @@ public class UserController {
 		//create a hashmap to associate user and token
 		Map<String, Object> tokenMap = new HashMap<String, Object>();
 		
-		System.out.println("hashed pw: "+passwordEncoder.encode(user.getPassword()));
-		System.out.println("saved pw: "+user.getPassword());
-		
-		System.out.println("password matching: "+passwordEncoder.matches(password, user.getPassword()));
 		
 		//check if password is correct
 		if (user != null && passwordEncoder.matches(password, user.getPassword())) {
@@ -115,44 +108,4 @@ public class UserController {
 				
 	}
 	
-	@RequestMapping(value="/home", method=RequestMethod.POST) 
-	public ResponseEntity<Transfer> transfer(Principal principal, @RequestParam String recipient,  @RequestParam double amount, 
-			@RequestParam String message, HttpServletResponse response) throws IOException {
-		
-		//check if recipient username exist in database
-		if (userRepository.findOneByUsername(recipient) == null) {
-			throw new RuntimeException("Recipient does not exists !");
-		}
-		
-		//sender username
-		String senderUsername = principal.getName();
-		
-		//sender User object
-		User sender = userRepository.findOneByUsername(senderUsername);
-		long senderId = sender.getId();
-		
-		//recipient User object
-		User recipientObject = userRepository.findOneByUsername(recipient);
-		long recipientId = recipientObject.getId();
-		
-		
-		BankAccount senderAccount = bankAccountRepository.findOne(senderId);
-		BankAccount recipientAccount = bankAccountRepository.findOne(recipientId);
-		
-		//create a new Transfer transaction
-		Transfer transfer = new Transfer(senderAccount, recipientAccount, amount);
-		transfer.setMessage(message);
-		
-		//save updates in bankaccounts and transfer history
-		bankAccountRepository.save(senderAccount);
-		bankAccountRepository.save(recipientAccount);
-		transferRepository.save(transfer);
-		
-		
-		return new ResponseEntity<Transfer>(HttpStatus.OK);
-		
-		
-	}
-	
-
 }

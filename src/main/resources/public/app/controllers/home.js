@@ -14,8 +14,10 @@ angular.module('JWTDemoApp')
 			}
 		}).success(function(res) {
 			$scope.transferProcess = null;
+			
 			$scope.transfer.$setPristine();
 			$scope.message = "To recipient is successful!";
+			
 		}).error(function(error){
 			$scope.message = error.message; 
 		

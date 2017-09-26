@@ -24,13 +24,10 @@ angular.module('JWTDemoApp').config(function($stateProvider, $urlRouterProvider)
 	}).state('users', {
 		parent : 'nav',
 		url : '/users',
-		data : {
-			role : 'ADMIN'
-		},
 		views : {
 			'content@' : {
-				templateUrl : 'app/views/users.html',
-				controller : 'UsersController',
+				templateUrl : 'app/views/home.html',
+				controller : 'HomeController'
 			}
 		}
 	}).state('home', {
@@ -38,8 +35,8 @@ angular.module('JWTDemoApp').config(function($stateProvider, $urlRouterProvider)
 		url : '/',
 		views : {
 			'content@' : {
-				templateUrl : 'app/views/home.html',
-				controller : 'HomeController'
+				templateUrl : 'app/views/dashboard.html',
+				controller : 'DashboardController'
 			}
 		}
 	}).state('page-not-found', {

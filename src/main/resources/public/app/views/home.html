@@ -10,22 +10,23 @@
 						<div class="form-group"
 							ng-class="{ 'has-error': transfer.recipient.$invalid && transfer.recipient.$dirty }">
 							<label for="recipient">To:</label> <input type="text" required
-								class="form-control" ng-model="transferProcess.recipient" id="recipient"
-								name="recipient">
+								class="form-control" ng-model="transferProcess.recipient"
+								id="recipient" name="recipient">
 						</div>
 
 						<div class="form-group"
 							ng-class="{ 'has-error': transfer.amount.$invalid && transfer.amount.$dirty }">
 							<label for="amount">Amount:</label> <input type="text" required
-								class="form-control" ng-model="transferProcess.amount" id="amount"
-								name="amount">
+								class="form-control" ng-model="transferProcess.amount"
+								id="amount" name="amount">
 						</div>
 
 
 						<div class="form-group"
 							ng-class="{ 'has-error': transfer.message.$invalid && transfer.message.$dirty }">
-							<label for="message">Message:</label> <input type="text" required 
-							class="form-control" ng-model="transferProcess.message" id="message" name="message">
+							<label for="message">Message:</label> <input type="text" required
+								class="form-control" ng-model="transferProcess.message"
+								id="message" name="message">
 						</div>
 
 						<button type="submit" class="btn btn-default"
@@ -38,4 +39,33 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Transaction History</div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Transfer</th>
+								<th>Message</th>
+								<th>Paid in</th>
+								<th>Paid out</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="transferProcess in transfers">
+								<td>{{transferProcess.recipient}}</td>
+								<td>{{transferProcess.message}}</td>
+								<td></td>
+								<td>{{transferProcess.amount}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
