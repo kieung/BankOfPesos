@@ -1,7 +1,7 @@
 package com.bankapp.model;
 
-import java.time.LocalDateTime;
 import java.util.Date;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,8 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 @Entity
 @Table(name = "transfer")
+
 public class Transfer {
 
 	@Id
@@ -23,11 +27,13 @@ public class Transfer {
 	
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL) 
 	@JoinColumn
+	@JsonIgnore
 	private BankAccount initiator;
 	
 	
 	@ManyToOne(fetch=FetchType.LAZY , cascade = CascadeType.ALL)
 	@JoinColumn
+	@JsonIgnore
 	private BankAccount recipient;
 	
 	private double amount;

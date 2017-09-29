@@ -55,9 +55,7 @@ public class UserController {
 			throw new RuntimeException("Username already exists");
 		}
 		
-				
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		
 		
 		List<String> roles = new ArrayList<String>();
 		roles.add("USER");
@@ -69,7 +67,6 @@ public class UserController {
 		account.setUser(user);
 		
 		bankAccountRepository.save(account);
-		
 		
 		userRepository.save(user);
 		return new ResponseEntity<User>(HttpStatus.CREATED); 
